@@ -7,31 +7,31 @@ epoch.
 
 ## Required work
 
-- [ ] **Part 1 — Data model:** review the provided `MediaKind`, `LoanStatus`,
+- [x] **Part 1 — Data model:** review the provided `MediaKind`, `LoanStatus`,
   `Item`, and `Member` types. Explain why `LoanStatus` is an enum rather than a
   `bool` plus two `Option` fields, and what `match` forces you to handle.
-- [ ] **Part 2 — Errors:** implement useful `Display` messages for every
+- [x] **Part 2 — Errors:** implement useful `Display` messages for every
   `LibraryError`, including the ids each variant carries. Expected invalid data
   must never call `panic!`.
-- [ ] **Part 3 — Ownership and borrowing:** implement `add_item` and
+- [x] **Part 3 — Ownership and borrowing:** implement `add_item` and
   `register_member`, which take ownership and reject empty titles and duplicate
   ids. Implement `find_item`, `find_member`, `items_by_author`, and
   `available_items` using borrowed references without cloning.
-- [ ] **Part 4 — Traits:** implement `LoanTerms` for both `MediaKind` and
+- [x] **Part 4 — Traits:** implement `LoanTerms` for both `MediaKind` and
   `Item`, writing the shared fee formula once in `late_fee_cents`. Implement
   `Display` for `MediaKind`, `LoanStatus`, and `Item`, and `longest_loan_item`.
-- [ ] **Part 5 — Checkout:** implement `checkout`. Validate first and mutate
+- [x] **Part 5 — Checkout:** implement `checkout`. Validate first and mutate
   second; on success the item's status and the member's borrowed list must both
   change. Use `?` where appropriate.
-- [ ] **Part 6 — Return:** implement `return_item`. Compute the days held with
+- [x] **Part 6 — Return:** implement `return_item`. Compute the days held with
   checked arithmetic, charge the fee through `LoanTerms`, set the item back to
   `Available`, and drop its id from the member's list.
-- [ ] **Part 7 — Experiments:** complete the two ownership experiments and
+- [x] **Part 7 — Experiments:** complete the two ownership experiments and
   record the compiler errors in `README.md`.
-- [ ] **Part 8 — Demo:** in `main.rs`, stock a library, register a member, run
+- [x] **Part 8 — Demo:** in `main.rs`, stock a library, register a member, run
   a complete loan and a late return, and print one handled error using its
   `Display` message. `main` returns `Result`, so use `?`.
-- [ ] **Part 9 (optional) — Generic search:** add `filter_items` taking a
+- [x] **Part 9 (optional) — Generic search:** add `filter_items` taking a
   `Fn(&Item) -> bool` and re-express the two filtered lookups in terms of it.
 
 ## Loan terms and validation rules
