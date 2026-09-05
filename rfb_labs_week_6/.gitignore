@@ -1,0 +1,7 @@
+/target
+.env
+wallet_data/
+*.sqlite
+*.sqlite-journal
+*.sqlite-wal
+*.sqlite-shm

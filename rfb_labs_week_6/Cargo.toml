@@ -2,5 +2,20 @@
 name = "rfb_labs_week_6"
 version = "0.1.0"
 edition = "2024"
+description = "A descriptor-based Bitcoin wallet for regtest/testnet built on BDK, rust-bitcoin, and bitcoincore-rpc."
 
 [dependencies]
+bdk_wallet = { version = "3.1.0", features = ["rusqlite", "keys-bip39"] }
+bdk_bitcoind_rpc = "0.22.0"
+bitcoincore-rpc = "0.19.0"
+bitcoin = "0.32.8"
+clap = { version = "4", features = ["derive", "env"] }
+dotenvy = "0.15"
+thiserror = "1"
+anyhow = "1"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[[example]]
+name = "decode_raw_tx"
+path = "examples/decode_raw_tx.rs"
