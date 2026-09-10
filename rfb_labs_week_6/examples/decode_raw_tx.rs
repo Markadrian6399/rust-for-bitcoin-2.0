@@ -8,6 +8,14 @@
 //!
 //! Run against a local regtest node:
 //!   cargo run --example decode_raw_tx -- <txid>
+//!
+//! ------------------------------------------------------------------------
+//! In plain words: a Bitcoin "note" (transaction) is written in a special
+//! secret code (bytes) that computers understand but people don't. This
+//! little program is a translator: you give it a note's ID number (txid),
+//! it asks the big shared notebook keeper for the note's secret-code
+//! version, and then it translates that code into a friendly list like
+//! "this much money came FROM here, and went TO there."
 
 use std::env;
 
@@ -31,7 +39,12 @@ fn main() -> anyhow::Result<()> {
 
     // getrawtransaction returns hex; bitcoincore-rpc doesn't parse it into a
     // rust-bitcoin `Transaction` for us here, so we decode it ourselves.
+    // Ask the notebook keeper: "what does note number `txid` look like, in
+    // secret code?" It answers with a long string of letters and numbers
+    // (hex) - that IS the note, just not readable by humans yet.
     let raw_hex: String = client.call("getrawtransaction", &[txid.into()])?;
+    // Translate that secret code into a friendly Rust `Transaction` we can
+    // actually read and print pieces of.
     let tx: Transaction = deserialize_hex(&raw_hex)?;
 
     println!("txid:     {}", tx.compute_txid());
@@ -40,6 +53,7 @@ fn main() -> anyhow::Result<()> {
     println!("weight:   {}", tx.weight());
     println!();
 
+    // "Inputs" are the coins this note is SPENDING (coming in).
     for (i, input) in tx.input.iter().enumerate() {
         println!("input[{i}]");
         println!("  previous_output: {}", input.previous_output);
@@ -50,6 +64,8 @@ fn main() -> anyhow::Result<()> {
         }
     }
 
+    // "Outputs" are the new coins this note CREATES (going out to
+    // whoever's mailbox address is on them).
     for (i, output) in tx.output.iter().enumerate() {
         println!("output[{i}]");
         println!("  value:         {}", output.value);
